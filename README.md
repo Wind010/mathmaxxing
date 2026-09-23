@@ -1,8 +1,20 @@
-# multi-rot
+# Mathmaxxing
 
 ## Overview
 
-This is a vibrant, interactive multiplication table quiz app designed to make learning math more engaging and rewarding for children. The app features a playful theme, confetti effects, and a color-coded quiz container to help reinforce number groupings.  Vibe coded with psychological professional.
+This is a vibrant, interactive collection of math practice games designed to make learning math more engaging and rewarding for children. Each game features a playful theme, confetti effects, and a color-coded quiz container to help reinforce number groupings.  Vibe coded with psychological professional.
+
+## The Games
+
+Pick a game from the menu on `index.html`:
+
+- **Multi-Rot:** The original 12x12 multiplication table quiz described below.
+- **Factor-Rot:** Type every factor of a growing number, from smallest to largest. A progress bar fills in as correct factors are found, but the numbers stay hidden until submitted so kids can't just watch the answer appear.
+- **Prime Factor-Rot:** Same idea as Factor-Rot, but only the prime factorization counts (e.g. 12 → 2, 2, 3).
+- **Div-Rot:** Quick division practice — find the quotient and remainder for a growing dividend (up to 2 digits).
+- **Long Div-Rot:** Work through full long division in an editable grid, just like on paper. Fill in the quotient, multiplication, and remainder boxes yourself, then press Check to see which digits are right (green) or wrong (red). There's also a "Help me through it step by step" checkbox that walks kids through the grid one box at a time with hints, for when they need more guidance.
+
+Every game shares the same reward system: confetti and sound effects for correct answers, error sounds for incorrect ones, a live scoreboard, and a growing difficulty level as questions are answered correctly.
 
 ## ADHD-Friendly Features
 
@@ -39,7 +51,7 @@ Color grouping helps children, especially those with ADHD, visually organize inf
 
 ## Getting Started
 
-Open `index.html` in your browser. No installation required.
+Open `index.html` in your browser and pick a game from the menu. No installation required.
 
 ## Customization
 

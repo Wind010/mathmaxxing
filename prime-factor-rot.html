@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Factor Finder</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/factor-rot.css">
+</head>
+<body>
+    <h1>Prime Factor Finder</h1>
+    <div id="quiz-container">
+        <div id="timer">Time: 0s</div>
+        <div id="difficulty">Digits: 1</div>
+        <div id="question"></div>
+        <div id="factor-progress"></div>
+        <input type="text" id="answer" placeholder="e.g. 2, 2, 3">
+        <button id="submit">Submit</button>
+        <div id="feedback"></div>
+        <button id="next" style="display:none;" title="Press Space bar for Next Question">Next Question</button>
+        <div id="scoreboard">
+            <strong>Scoreboard</strong><br>
+            <div id="correct-section">
+                Correct: <span id="correct-count">0</span> (<span id="correct-percent">0</span>%)
+            </div>
+            <div id="wrong-section">
+                Wrong: <span id="wrong-count">0</span> (<span id="wrong-percent">0</span>%)
+            </div>
+            <button id="reset-score">Reset Score</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.9.1/tsparticles.confetti.bundle.min.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/prime-factor-rot.js"></script>
+</body>
+</html>

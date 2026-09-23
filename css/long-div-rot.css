@@ -1,0 +1,86 @@
+#long-division-steps {
+    display: inline-block;
+    margin: 0 auto 10px auto;
+    font-family: 'Courier New', monospace;
+    font-size: 1.6em;
+}
+
+.ld-divisor {
+    padding-right: 0.2em;
+    white-space: nowrap;
+    justify-self: end;
+}
+
+.ld-grid {
+    display: grid;
+    grid-auto-rows: 1.4em;
+    align-items: center;
+}
+
+.ld-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ld-cell.ld-static {
+    font-weight: bold;
+}
+
+.ld-cell.ld-line {
+    align-self: start;
+    height: 0;
+    border-top: 2px solid #333;
+    width: 100%;
+}
+
+.ld-cell input {
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    font-family: inherit;
+    font-size: 1em;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 0;
+    background: #fff;
+}
+
+.ld-cell input.correct {
+    background: #c8e6c9;
+    border-color: #2e7d32;
+    color: #1b5e20;
+}
+
+.ld-cell input.wrong {
+    background: #ffcdd2;
+    border-color: #c62828;
+    color: #b71c1c;
+}
+
+.ld-cell input:disabled {
+    opacity: 1;
+}
+
+#guided-mode-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95em;
+    color: #132b5f;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+#guided-mode {
+    width: 1.4em;
+    height: 1.4em;
+    cursor: pointer;
+}
+
+#step-prompt {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #132b5f;
+}

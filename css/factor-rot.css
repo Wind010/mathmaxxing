@@ -1,0 +1,35 @@
+#answer {
+    width: 220px;
+}
+
+#difficulty {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+#factor-progress {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.factor-pill {
+    min-width: 28px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #eee;
+    color: #aaa;
+    font-weight: bold;
+    font-size: 0.9em;
+    border: 1px solid #ddd;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.factor-pill.found {
+    background: #c8e6c9;
+    color: #1b5e20;
+    border-color: #81c784;
+}

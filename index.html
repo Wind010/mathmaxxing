@@ -3,31 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12x12 Multiplication Table Quiz</title>
+    <title>Mathmaxxing</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu.css">
 </head>
 <body>
-    <h1>12x12 Multiplication Table Quiz</h1>
-    <div id="quiz-container">
-        <div id="timer">Time: 0s</div>
-        <div id="question"></div>
-        <input type="number" id="answer" placeholder="Your answer">
-        <button id="submit">Submit</button>
-        <div id="feedback"></div>
-        <button id="next" style="display:none;" title="Press Space bar for Next Question">Next Question</button>
-        <div id="scoreboard">
-            <strong>Scoreboard</strong><br>
-            <div id="correct-section">
-                Correct: <span id="correct-count">0</span> (<span id="correct-percent">0</span>%)
-            </div>
-            <div id="wrong-section">
-                Wrong: <span id="wrong-count">0</span> (<span id="wrong-percent">0</span>%)
-            </div>
-            <button id="reset-score">Reset Score</button>
-        </div>
+    <h1>Mathmaxxing</h1>
+    <div id="menu-container">
+        <a class="menu-card" href="multi-rot.html">
+            <h2>Multi-Rot</h2>
+            <p>Practice your times tables from 1x1 to 12x12.</p>
+        </a>
+        <a class="menu-card" href="factor-rot.html">
+            <h2>Factor-Rot</h2>
+            <p>List every factor of a growing number, starting from a single digit.</p>
+        </a>
+        <a class="menu-card" href="prime-factor-rot.html">
+            <h2>Prime Factor-Rot</h2>
+            <p>List the prime factorization of a growing number, starting from a single digit.</p>
+        </a>
+        <a class="menu-card" href="div-rot.html">
+            <h2>Div-Rot</h2>
+            <p>Long division practice: find the quotient and remainder of a growing dividend.</p>
+        </a>
+        <a class="menu-card" href="long-div-rot.html">
+            <h2>Long Div-Rot</h2>
+            <p>Fill in the long division grid yourself, then check your work.</p>
+        </a>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.9.1/tsparticles.confetti.bundle.min.js"></script>
-    <script src="js/effects.js"></script>
-    <script src="js/script.js"></script>
 </body>
 </html>

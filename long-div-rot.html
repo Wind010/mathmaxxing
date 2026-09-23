@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Long Div-Rot</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/div-rot.css">
+    <link rel="stylesheet" href="css/long-div-rot.css">
+</head>
+<body>
+    <h1>Long Div-Rot</h1>
+    <div id="quiz-container">
+        <div id="timer">Time: 0s</div>
+        <div id="difficulty">Digits: 3</div>
+        <div id="question"></div>
+        <label id="guided-mode-label">
+            <input type="checkbox" id="guided-mode">
+            Help me through it step by step
+        </label>
+        <div id="step-prompt">Fill in the grid, then press Check.</div>
+        <div id="long-division-steps"></div>
+        <button id="submit">Check</button>
+        <div id="feedback"></div>
+        <button id="next" style="display:none;" title="Press Space bar for Next Question">Next Question</button>
+        <div id="scoreboard">
+            <strong>Scoreboard</strong><br>
+            <div id="correct-section">
+                Correct: <span id="correct-count">0</span> (<span id="correct-percent">0</span>%)
+            </div>
+            <div id="wrong-section">
+                Wrong: <span id="wrong-count">0</span> (<span id="wrong-percent">0</span>%)
+            </div>
+            <button id="reset-score">Reset Score</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.9.1/tsparticles.confetti.bundle.min.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/long-div-rot.js"></script>
+</body>
+</html>

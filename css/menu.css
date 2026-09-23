@@ -1,0 +1,65 @@
+#menu-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    margin: 60px auto;
+    max-width: 900px;
+    padding: 0 20px;
+}
+
+.menu-card {
+    position: relative;
+    background: #fff;
+    width: 300px;
+    padding: 2vw;
+    border-radius: 8px;
+    border: 3px solid transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    text-decoration: none;
+    color: #132b5f;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-clip: padding-box;
+}
+
+.menu-card::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 8px;
+    padding: 3px;
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet, red);
+    background-size: 300% 300%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.2s;
+    animation: rainbow-shimmer 3s linear infinite;
+    pointer-events: none;
+}
+
+.menu-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+
+.menu-card:hover::before {
+    opacity: 1;
+}
+
+@keyframes rainbow-shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+
+.menu-card h2 {
+    margin-top: 0;
+}
+
+.menu-card p {
+    color: #444;
+    margin-bottom: 0;
+}
