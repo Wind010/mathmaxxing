@@ -41,6 +41,12 @@ let digitCount = 1;
 let currentNumber = 0;
 let currentFactors = [];
 
+const scheduler = createRepeatScheduler({
+    storageKey: 'factorRot.missedSchedule',
+    getKey: q => String(q.number),
+    isValid: q => Number.isInteger(q.number) && q.number >= 1 && q.number < Math.pow(10, MAX_DIGITS)
+});
+
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -77,9 +83,15 @@ function generateQuestion() {
         timerDiv.textContent = `Time: ${elapsed}s`;
     }, 1000);
 
-    const min = digitCount === 1 ? 1 : Math.pow(10, digitCount - 1);
-    const max = Math.pow(10, digitCount) - 1;
-    currentNumber = getRandomInt(min, max);
+    scheduler.tick();
+    const repeat = scheduler.nextDue();
+    if (repeat) {
+        currentNumber = repeat.number;
+    } else {
+        const min = digitCount === 1 ? 1 : Math.pow(10, digitCount - 1);
+        const max = Math.pow(10, digitCount) - 1;
+        currentNumber = getRandomInt(min, max);
+    }
     currentFactors = getFactors(currentNumber);
 
     difficultyDiv.textContent = `Digits: ${digitCount}`;
@@ -117,6 +129,7 @@ submitBtn.addEventListener('click', () => {
         renderFactorProgress(new Set(currentFactors));
         correctCount++;
         updateScoreboard();
+        scheduler.recordCorrect({ number: currentNumber });
         digitCount = Math.min(digitCount + 1, MAX_DIGITS);
         if (typeof correct_answer === 'function') {
             correct_answer();
@@ -129,6 +142,7 @@ submitBtn.addEventListener('click', () => {
         feedbackDiv.style.color = 'red';
         renderFactorProgress(new Set(currentFactors));
         wrongCount++;
+        scheduler.recordMiss({ number: currentNumber });
         updateScoreboard();
         if (typeof playErrorSound === 'function') {
             playErrorSound();

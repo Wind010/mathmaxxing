@@ -41,8 +41,17 @@ const START_DIGITS = 3;
 const MAX_DIGITS = 5;
 let digitCount = START_DIGITS;
 
+const scheduler = createRepeatScheduler({
+    storageKey: 'longDivRot.missedSchedule',
+    getKey: q => `${q.dividend}/${q.divisor}`,
+    isValid: q => Number.isInteger(q.dividend) && Number.isInteger(q.divisor) &&
+        q.dividend >= Math.pow(10, START_DIGITS - 1) && q.dividend < Math.pow(10, MAX_DIGITS) &&
+        q.divisor >= 2 && q.divisor <= 9
+});
+
 let dividendDigits = [];
 let divisor = 0;
+let currentDividend = 0;
 let finished = false;
 let guidedOrder = [];
 
@@ -238,10 +247,18 @@ function generateQuestion() {
         timerDiv.textContent = `Time: ${elapsed}s`;
     }, 1000);
 
-    const min = Math.pow(10, digitCount - 1);
-    const max = Math.pow(10, digitCount) - 1;
-    const dividend = getRandomInt(min, max);
-    divisor = getRandomInt(2, 9);
+    scheduler.tick();
+    let dividend;
+    const repeat = scheduler.nextDue();
+    if (repeat) {
+        ({ dividend, divisor } = repeat);
+    } else {
+        const min = Math.pow(10, digitCount - 1);
+        const max = Math.pow(10, digitCount) - 1;
+        dividend = getRandomInt(min, max);
+        divisor = getRandomInt(2, 9);
+    }
+    currentDividend = dividend;
     dividendDigits = String(dividend).split('').map(Number);
     finished = false;
 
@@ -282,6 +299,7 @@ function finishQuestion(allCorrect) {
         feedbackDiv.style.color = 'green';
         correctCount++;
         updateScoreboard();
+        scheduler.recordCorrect({ dividend: currentDividend, divisor });
         digitCount = Math.min(digitCount + 1, MAX_DIGITS);
         if (typeof correct_answer === 'function') correct_answer();
         if (typeof playCorrectSound === 'function') playCorrectSound();
@@ -289,6 +307,7 @@ function finishQuestion(allCorrect) {
         feedbackDiv.textContent = '❌ Not quite. Wrong digits are shown in red, correct answer revealed.';
         feedbackDiv.style.color = 'red';
         wrongCount++;
+        scheduler.recordMiss({ dividend: currentDividend, divisor });
         updateScoreboard();
         if (typeof playErrorSound === 'function') playErrorSound();
     }

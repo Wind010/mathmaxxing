@@ -39,6 +39,14 @@ const MAX_DIGITS = 2;
 let digitCount = 1;
 let currentQuestion = {};
 
+const scheduler = createRepeatScheduler({
+    storageKey: 'divRot.missedSchedule',
+    getKey: q => `${q.dividend}/${q.divisor}`,
+    isValid: q => Number.isInteger(q.dividend) && Number.isInteger(q.divisor) &&
+        q.dividend >= 1 && q.dividend < Math.pow(10, MAX_DIGITS) &&
+        q.divisor >= 2 && q.divisor <= 9
+});
+
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -53,10 +61,17 @@ function generateQuestion() {
         timerDiv.textContent = `Time: ${elapsed}s`;
     }, 1000);
 
-    const min = digitCount === 1 ? 1 : Math.pow(10, digitCount - 1);
-    const max = Math.pow(10, digitCount) - 1;
-    const dividend = getRandomInt(min, max);
-    const divisor = getRandomInt(2, 9);
+    scheduler.tick();
+    let dividend, divisor;
+    const repeat = scheduler.nextDue();
+    if (repeat) {
+        ({ dividend, divisor } = repeat);
+    } else {
+        const min = digitCount === 1 ? 1 : Math.pow(10, digitCount - 1);
+        const max = Math.pow(10, digitCount) - 1;
+        dividend = getRandomInt(min, max);
+        divisor = getRandomInt(2, 9);
+    }
     currentQuestion = {
         dividend,
         divisor,
@@ -95,6 +110,7 @@ submitBtn.addEventListener('click', () => {
         feedbackDiv.style.color = 'green';
         correctCount++;
         updateScoreboard();
+        scheduler.recordCorrect(currentQuestion);
         digitCount = Math.min(digitCount + 1, MAX_DIGITS);
         if (typeof correct_answer === 'function') {
             correct_answer();
@@ -106,6 +122,7 @@ submitBtn.addEventListener('click', () => {
         feedbackDiv.textContent = `❌ Incorrect. ${currentQuestion.dividend} ÷ ${currentQuestion.divisor} = ${currentQuestion.quotient} remainder ${currentQuestion.remainder}.`;
         feedbackDiv.style.color = 'red';
         wrongCount++;
+        scheduler.recordMiss(currentQuestion);
         updateScoreboard();
         if (typeof playErrorSound === 'function') {
             playErrorSound();
