@@ -52,6 +52,28 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+const excludeCheckboxes = document.querySelectorAll('.exclude-factor');
+
+function getExcludedFactors() {
+    return new Set(
+        Array.from(excludeCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => parseInt(cb.value, 10))
+    );
+}
+
+function isExcluded(question, excluded) {
+    return excluded.has(question.a) || excluded.has(question.b);
+}
+
+function getRandomFactor(excluded) {
+    const allowed = [];
+    for (let n = 1; n <= 12; n++) {
+        if (!excluded.has(n)) allowed.push(n);
+    }
+    return allowed[getRandomInt(0, allowed.length - 1)];
+}
+
 function getQuestionKey(question) {
     return `${question.a}x${question.b}`;
 }
@@ -79,9 +101,10 @@ function decrementMissedSchedule() {
     });
 }
 
-function getNextDueMissedQuestion() {
+function getNextDueMissedQuestion(excluded) {
     for (const [key, entry] of missedQuestionSchedule) {
-        if (entry.dueIn <= 0) {
+        // Excluded questions stay scheduled so they return if the filter is unchecked.
+        if (entry.dueIn <= 0 && !isExcluded(entry.question, excluded)) {
             logRepetition('Serving due missed question', {
                 key,
                 question: entry.question,
@@ -187,7 +210,8 @@ function generateQuestion() {
         isFirstQuestion = false;
     } else {
         decrementMissedSchedule();
-        const nextMissed = getNextDueMissedQuestion();
+        const excluded = getExcludedFactors();
+        const nextMissed = getNextDueMissedQuestion(excluded);
 
         if (nextMissed) {
             currentQuestion = nextMissed;
@@ -196,8 +220,8 @@ function generateQuestion() {
                 queueSize: missedQuestionSchedule.size
             });
         } else {
-            const a = getRandomInt(1, 12);
-            const b = getRandomInt(1, 12);
+            const a = getRandomFactor(excluded);
+            const b = getRandomFactor(excluded);
             currentQuestion = { a, b, answer: a * b };
             if (missedQuestionSchedule.size > 0) {
                 logRepetition('Question source: random (no due repeats yet)', {
@@ -295,5 +319,12 @@ document.addEventListener('keydown', function(event) {
         nextBtn.click();
     }
 });
+
+// Replace an unanswered question if its factor just got excluded
+excludeCheckboxes.forEach(cb => cb.addEventListener('change', () => {
+    if (!submitBtn.disabled && isExcluded(currentQuestion, getExcludedFactors())) {
+        generateQuestion();
+    }
+}));
 
 generateQuestion();

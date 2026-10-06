@@ -10,6 +10,13 @@
     <h1>12x12 Multiplication Table Quiz</h1>
     <div id="quiz-container">
         <div id="timer">Time: 0s</div>
+        <div id="exclude-options">
+            Skip:
+            <label><input type="checkbox" class="exclude-factor" value="1" checked> 1s</label>
+            <label><input type="checkbox" class="exclude-factor" value="5" checked> 5s</label>
+            <label><input type="checkbox" class="exclude-factor" value="10" checked> 10s</label>
+            <label><input type="checkbox" class="exclude-factor" value="11" checked> 11s</label>
+        </div>
         <div id="question"></div>
         <input type="number" id="answer" placeholder="Your answer">
         <button id="submit">Submit</button>
